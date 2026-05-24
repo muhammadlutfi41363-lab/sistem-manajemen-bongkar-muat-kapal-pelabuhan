@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sistem Bongkar Muat Kapal</title>
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Sistem Informasi Bongkar Muat Kapal</h1>
+
+<div class="dashboard">
+
+<div class="card">
+<h3>Total Antrean</h3>
+<p>{{ total_antrean }}</p>
+</div>
+
+<div class="card">
+<h3>Total Selesai</h3>
+<p>{{ total_selesai }}</p>
+</div>
+
+<div class="card">
+<h3>Total Muatan</h3>
+<p>{{ total_muatan }} Ton</p>
+</div>
+
+</div>
+
+<h2>Tambah Kapal</h2>
+
+<form action="/tambah" method="post">
+
+<input type="text" name="nomor"
+placeholder="Nomor Kapal" required>
+
+<input type="text" name="nama"
+placeholder="Nama Kapal" required>
+
+<input type="text" name="nahkoda"
+placeholder="Nama Nahkoda" required>
+
+<input type="text" name="dermaga"
+placeholder="Nomor Dermaga" required>
+
+<input type="text" name="muatan"
+placeholder="Jenis Muatan" required>
+
+<input type="number" step="0.1"
+name="berat"
+placeholder="Berat Muatan (Ton)"
+required>
+
+<button type="submit">
+Tambah Antrean
+</button>
+
+</form>
+
+<h2>Daftar Antrean Kapal</h2>
+
+<table>
+
+<tr>
+<th>No</th>
+<th>Nama Kapal</th>
+<th>Nahkoda</th>
+<th>Dermaga</th>
+<th>Muatan</th>
+<th>Berat</th>
+<th>Datang</th>
+</tr>
+
+{% for kapal in antrian %}
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ kapal.nama }}</td>
+<td>{{ kapal.nahkoda }}</td>
+<td>{{ kapal.dermaga }}</td>
+<td>{{ kapal.muatan }}</td>
+<td>{{ kapal.berat }} Ton</td>
+<td>{{ kapal.waktu }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/proses">
+<button>
+Proses Bongkar Muat FIFO
+</button>
+</a>
+
+<h2>Riwayat Kapal Selesai</h2>
+
+<table>
+
+<tr>
+<th>Nama Kapal</th>
+<th>Muatan</th>
+<th>Selesai</th>
+</tr>
+
+{% for kapal in riwayat %}
+<tr>
+<td>{{ kapal.nama }}</td>
+<td>{{ kapal.muatan }}</td>
+<td>{{ kapal.selesai }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
